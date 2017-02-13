@@ -1,0 +1,28 @@
+{
+  "entry": "src/index.js",
+  "extraBabelPlugins": [
+    "transform-runtime",
+    "dva-hmr",
+    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": "css" }]
+  ],
+  "proxy": {
+    "/api": {
+      "target": "http://192.168.50.251:8080/mockjsdata/3/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
+  },
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        "transform-runtime"
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+        "transform-runtime"
+      ]
+    }
+  }
+}
