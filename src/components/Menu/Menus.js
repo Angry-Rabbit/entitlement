@@ -32,7 +32,7 @@ function Menus({siderFold, darkTheme, location, handleClickNavMenu, isNavbar}) {
   const menuItems = getMenus(menu, siderFold)
   return (
     <Menu
-      mode={siderFold ? 'vertical' : 'inline'}
+      mode='inline'
       theme={darkTheme ? 'light' : 'dark'}
       onClick={handleClickNavMenu}
       defaultOpenKeys={isNavbar ? menuItems.map(item => item.key) : []}
