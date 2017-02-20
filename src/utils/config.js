@@ -4,6 +4,6 @@
 module.exports = {
   name: 'Entitlement System',
   logoSrc: 'https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg',
-  logoText: 'Entitlement System',
+  logoText: '权管系统(ES)',
   copyright: 'Kairu Tech 版权所有 @2017'
 }

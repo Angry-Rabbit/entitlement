@@ -1,12 +1,45 @@
-import React from 'react';
-import styles from './Menus.css';
+import React from 'react'
+import {Menu, Icon} from 'antd'
+import {Link} from 'dva/router'
+import menu from '../../utils/menu'
 
-function Menus() {
-  return (
-    <div className={styles.normal}>
-      Component: Menus
-    </div>
-  );
+const topMenus = menu.map(item => item.key)
+const getMenus = function (menuArray, siderFold, parentPath) {
+  parentPath = parentPath || '/'
+  return menuArray.map(item => {
+    if (item.child) {
+      return (
+        <Menu.SubMenu key={item.key} title={<span>{item.icon ?
+          <Icon type={item.icon}/> : ''}{siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}</span>}>
+          {getMenus(item.child, siderFold, parentPath + item.key + '/')}
+        </Menu.SubMenu>
+      )
+    } else {
+      return (
+        <Menu.Item key={item.key}>
+          <Link to={parentPath + item.key}>
+            {item.icon ? <Icon type={item.icon}/> : ''}
+            {siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}
+          </Link>
+        </Menu.Item>
+      )
+    }
+  })
 }
 
-export default Menus;
+
+function Menus({siderFold, darkTheme, location, handleClickNavMenu, isNavbar}) {
+  const menuItems = getMenus(menu, siderFold)
+  return (
+    <Menu
+      mode='inline'
+      theme={darkTheme ? 'light' : 'dark'}
+      onClick={handleClickNavMenu}
+      defaultOpenKeys={isNavbar ? menuItems.map(item => item.key) : []}
+      defaultSelectedKeys={[location.pathname.split('/')[location.pathname.split('/').length - 1] || 'dashboard']}>
+      {menuItems}
+    </Menu>
+  )
+}
+
+export default Menus

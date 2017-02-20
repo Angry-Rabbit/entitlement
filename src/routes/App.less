@@ -3,33 +3,6 @@
 .normal {
 }
 
-.trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 16px;
-  cursor: pointer;
-  transition: color .3s;
-}
-
-.trigger:hover {
-  color: #108ee9;
-}
-
-.logo {
-  height: 32px;
-  background: #333;
-  border-radius: 6px;
-  margin: 16px;
-}
-
-.ant-layout-sider-collapsed .anticon {
-  font-size: 16px;
-}
-
-.ant-layout-sider-collapsed .nav-text {
-  display: none;
-}
-
 .ant_layout {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -65,14 +38,35 @@
   span {
     vertical-align: text-bottom;
     font-size: 16px;
+    color: #C0C0C0;
     text-transform: uppercase;
-    display: inline-block;
   }
 
   .anticon {
     transition: @transition-ease-out;
   }
+}
 
+:global {
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: color .3s;
+  }
+
+  .trigger:hover {
+    color: #108ee9;
+  }
+
+  .ant-layout-sider-collapsed .anticon {
+    font-size: 16px;
+  }
+
+  .ant-layout-sider-collapsed .nav-text {
+    display: none;
+  }
 }
 
 
