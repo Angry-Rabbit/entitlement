@@ -9,7 +9,6 @@ import MenusMgt from './components/Menu/MenusMgt';
 import OrgsMgt from './components/Org/OrgsMgt';
 import UserGroupsMgt from './components/UserGroup/UserGroupsMgt';
 import Settings from './components/Setting/Settings';
-
 import App from "./routes/App.js";
 
 function RouterConfig({history}) {

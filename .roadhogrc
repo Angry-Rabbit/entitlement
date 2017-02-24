@@ -6,7 +6,7 @@
     ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": "css" }]
   ],
   "proxy": {
-    "/api": {
+    "/api/**": {
       "target": "http://192.168.50.251:8080/mockjsdata/3/",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }

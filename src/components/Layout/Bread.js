@@ -50,7 +50,7 @@ function Bread({location}) {
   }
 
   breads.unshift(
-    <Breadcrumb.Item href='#/'><Icon type='home'/>
+    <Breadcrumb.Item href='#/' key='eshome'><Icon type='home'/>
       <span>ES</span>
     </Breadcrumb.Item>
   );

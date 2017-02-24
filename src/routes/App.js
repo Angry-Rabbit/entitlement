@@ -4,12 +4,21 @@ import styles from './App.less';
 import {Layout, Menu, Breadcrumb, Icon, Affix} from 'antd';
 import Menus from '../components/Layout/Menus';
 import Bread from '../components/Layout/Bread';
+import Header from '../components/Layout/Header'
 import config from '../utils/config';
 const {SubMenu} = Menu;
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 function App({children, location, dispatch, app}) {
-  const {siderCollapsed} = app;
+  const {siderCollapsed, user} = app;
+
+  const headerProps = {
+    user,
+    logout () {
+      dispatch({type: 'app/logout'})
+    }
+  };
+
   const siderProps = {
     location: location,
     siderFold: siderCollapsed,
@@ -34,15 +43,15 @@ function App({children, location, dispatch, app}) {
           <Menus {...siderProps} />
         </Sider>
         <Layout>
-          <Header style={{background: '#fff', padding: 0}}/>
+          <Header {...headerProps} />
           <Content style={{margin: '0 16px'}}>
             <Bread location={location}/>
-            <div style={{padding: 24, background: '#fff', minHeight: 360}}>
+            <div style={{padding: 8, background: '#fff', minHeight: 360}}>
               {children}
             </div>
           </Content>
           <Footer style={{textAlign: 'center'}}>
-            Ant Design ©2016 Created by Ant UED
+            {config.copyright}
           </Footer>
         </Layout>
       </Layout>
