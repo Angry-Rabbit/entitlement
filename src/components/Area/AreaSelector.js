@@ -1,32 +1,38 @@
 import React from 'react';
 import styles from './AreaSelector.css';
-import { Cascader, Icon } from 'antd';
+import {Cascader, Icon} from 'antd';
 
 const options = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
+  value: '110000',
+  label: '北京市',
   children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }, {
-      value: 'xiasha',
-      label: 'Xia Sha',
-      disabled: true,
-    }],
+    value: '110101',
+    label: '东城区'
+  }, {
+    value: '110102',
+    label: '西城区'
+  }, {
+    value: '110103',
+    label: '朝阳区'
+  }, {
+    value: '110104',
+    label: '丰台区'
   }],
 }, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
+  value: '120000',
+  label: '天津市',
   children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua men',
-    }],
+    value: '120101',
+    label: '和平区'
+  }, {
+    value: '120102',
+    label: '河东区'
+  }, {
+    value: '120103',
+    label: '河西区'
+  }, {
+    value: '120104',
+    label: '南开区'
   }],
 }];
 
@@ -36,10 +42,10 @@ function onChange(value, selectedOptions) {
 
 const AreaSelector = () => (
   <Cascader
-    style={{ width: '100%'}}
+    style={{width: '100%'}}
     options={options}
     onChange={onChange}
-    placeholder="请选择组织/机构区域..."
+    placeholder="过滤：选择要显示的组织/机构区域"
     showSearch
     icon="filter"
   />

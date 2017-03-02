@@ -1,12 +1,15 @@
-import {logout} from '../services/app';
+import {logout, login} from '../services/app';
+import {message} from 'antd';
 
 export default {
   namespace: 'app',
   state: {
-    login: false,
+    isLogin: false,
     siderCollapsed: false,
     user: {
       name: 'HeFan',
+      permissions: [],
+      menus: []
     },
   },
   effects: {
@@ -16,11 +19,21 @@ export default {
         payload: collapsed,
       });
     },
-    *logout({call, put}){
+    *logout(action, {call, put}){
       yield call(logout);
       yield put({
         type: 'logoutSuccess',
       });
+    },
+    *login({payload}, {call, put}){
+      const {account, password, jcaptcha} = payload;
+      const {data} = yield call(login, account, password, jcaptcha);
+      if (!!data) {
+        yield put({
+          type: 'loginSuccess',
+          payload: data
+        });
+      }
     }
   },
   reducers: {
@@ -36,10 +49,20 @@ export default {
       localStorage.removeItem('refresh_token')
       return {
         ...state,
-        login: false,
+        isLogin: false,
         user: null,
       }
     },
+    loginSuccess(state, {payload}){
+      const {userInfo, access_token, refresh_token} = payload;
+      debugger;
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+      return {
+        ...state,
+        isLogin: true
+      }
+    }
   },
 
   subscriptions: {},

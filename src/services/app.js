@@ -1,18 +1,30 @@
 import request from '../utils/request';
 
-export async function login() {
+export function login(account, password, jcaptcha) {
+  return request(`api/login`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+      client_id: '13620027800136200278001362002780013',
+      mobile: account,
+      password,
+      jcaptcha,
+      role_id: 'R001',
+    })
+  })
+}
+
+export function logout() {
   /*TODO*/
 }
 
-export async function logout(){
-  /*TODO*/
-}
-
-export async function getUserInfo(){
+export function getUserInfo() {
   return request('/api/users');
   /*TODO*/
 }
 
-export async function refreshAccessToken(){
+export function refreshAccessToken() {
   /*TODO*/
 }

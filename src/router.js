@@ -11,6 +11,8 @@ import UserGroupsMgt from './components/UserGroup/UserGroupsMgt';
 import Settings from './components/Setting/Settings';
 import App from "./routes/App.js";
 
+import Login from "./routes/Login.js";
+
 function RouterConfig({history}) {
   return (
     <Router history={history}>
@@ -25,6 +27,7 @@ function RouterConfig({history}) {
         <Route path="userGroups" component={UserGroupsMgt}/>
         <Route path="settings" component={Settings}/>
       </Route>
+      <Route path="/Login" component={Login} />
     </Router>
   );
 }

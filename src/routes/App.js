@@ -6,11 +6,20 @@ import Menus from '../components/Layout/Menus';
 import Bread from '../components/Layout/Bread';
 import Header from '../components/Layout/Header'
 import config from '../utils/config';
+import Login from './Login';
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
 function App({children, location, dispatch, app}) {
-  const {siderCollapsed, user} = app;
+  const {siderCollapsed, user, loading, loginButtonLoading, isLogin} = app;
+  const loginProps = {
+    loading,
+    loginButtonLoading,
+    onOk(data){
+      dispatch({type: 'app/login', payload: data})
+    },
+  }
+
 
   const headerProps = {
     user,
@@ -34,27 +43,27 @@ function App({children, location, dispatch, app}) {
 
   return (
     <div className={styles.normal}>
-      <Layout className={styles.ant_layout}>
-        <Sider collapsible onCollapse={onCollapse} collapsed={siderCollapsed}>
-          <div className={styles.logo}>
-            <img src={config.logoSrc}/>
-            {siderCollapsed ? '' : <span>{config.logoText}</span>}
-          </div>
-          <Menus {...siderProps} />
-        </Sider>
-        <Layout>
-          <Header {...headerProps} />
-          <Content style={{margin: '0 16px'}}>
-            <Bread location={location}/>
-            <div style={{padding: 8, background: '#fff', minHeight: 360}}>
-              {children}
+      {!isLogin ? <Login {...loginProps}/> : <Layout className={styles.ant_layout}>
+          <Sider collapsible onCollapse={onCollapse} collapsed={siderCollapsed}>
+            <div className={styles.logo}>
+              <img src={config.logoSrc}/>
+              {siderCollapsed ? '' : <span>{config.logoText}</span>}
             </div>
-          </Content>
-          <Footer style={{textAlign: 'center'}}>
-            {config.copyright}
-          </Footer>
-        </Layout>
-      </Layout>
+            <Menus {...siderProps} />
+          </Sider>
+          <Layout>
+            <Header {...headerProps} />
+            <Content style={{margin: '0 16px'}}>
+              <Bread location={location}/>
+              <div style={{padding: 8, background: '#fff', minHeight: 360}}>
+                {children}
+              </div>
+            </Content>
+            <Footer style={{textAlign: 'center'}}>
+              {config.copyright}
+            </Footer>
+          </Layout>
+        </Layout>}
     </div>
   );
 }

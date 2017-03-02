@@ -1,10 +1,20 @@
 import {Table} from 'antd';
+import styles from './UserList.css';
+import UserModal from './UserModal';
+
+function editHandler(uid, index, values){
+
+}
 
 const columns = [
-  {title: 'Name', dataIndex: 'name', key: 'name'},
-  {title: 'Age', dataIndex: 'age', key: 'age'},
-  {title: 'Address', dataIndex: 'address', key: 'address'},
-  {title: 'Action', dataIndex: '', key: 'x', render: () => <a href="#">Delete</a>},
+  {title: '名字', dataIndex: 'name', key: 'name'},
+  {title: '角色', dataIndex: 'age', key: 'age'},
+  {title: '地址', dataIndex: 'address', key: 'address'},
+  {
+    title: '操作', dataIndex: '', key: 'x',
+    render: () => (<a>Edit</a>
+    )
+  },
 ];
 
 const data = [

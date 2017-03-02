@@ -7,7 +7,7 @@
   ],
   "proxy": {
     "/api/**": {
-      "target": "http://192.168.50.251:8080/mockjsdata/3/",
+      "target": "http://192.168.51.168:8080/",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
     }
