@@ -8,7 +8,7 @@ export function fetch(appID) {
   return request(`api/apps/${appID}`, {
     method: 'GET',
     headers: {
-      Authentication: '',
+      Authentication: lo,
     }
   });
 }

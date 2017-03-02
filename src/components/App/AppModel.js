@@ -55,7 +55,6 @@ class AppEditModal extends Component {
       wrapperCol: {span: 14},
     };
 
-    debugger;
     return (
       <span>
         <span onClick={this.showModelHandler}>

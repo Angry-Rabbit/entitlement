@@ -1,35 +1,102 @@
-import React from 'react';
-import {Router, Route, IndexRoute} from 'dva/router';
-import ESHome from './components/ESHome';
-import AppsMgt from './components/App/AppsMgt';
-import UsersMgt from './components/User/UsersMgt';
-import RolesMgt from './components/Role/RolesMgt';
-import FunctionsMgt from './components/Function/FunctionsMgt';
-import MenusMgt from './components/Menu/MenusMgt';
-import OrgsMgt from './components/Org/OrgsMgt';
-import UserGroupsMgt from './components/UserGroup/UserGroupsMgt';
-import Settings from './components/Setting/Settings';
-import App from "./routes/App.js";
+import React from 'react'
+import {Router} from 'dva/router'
+import App from './routes/App'
 
-import Login from "./routes/Login.js";
+export default function ({history, app}) {
+  const routes = [
+    {
+      path: '/',
+      component: App,
+      getIndexRoute (nextState, cb) {
+        require.ensure([], require => {
+          cb(null, {component: require('./components/ESHome')})
+        })
+      },
+      childRoutes: [
+        {
+          path: 'eshome',
+          name: 'eshome',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/ESHome'))
+            })
+          }
+        }, {
+          path: 'apps',
+          name: 'apps',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/App/AppsMgt'))
+            })
+          }
+        }, {
+          path: 'users',
+          name: 'users',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/User/UsersMgt'))
+            })
+          }
+        }, {
+          path: 'roles',
+          name: 'roles',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/Role/RolesMgt'))
+            })
+          }
+        }, {
+          path: 'funcs',
+          name: 'funcs',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/Function/FunctionsMgt'))
+            })
+          }
+        }, {
+          path: 'menus',
+          name: 'menus',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/Menu/MenusMgt'))
+            })
+          }
+        }, {
+          path: 'orgs',
+          name: 'orgs',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/Org/OrgsMgt'))
+            })
+          }
+        }, {
+          path: 'userGroups',
+          name: 'userGroups',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/UserGroup/UserGroupsMgt'))
+            })
+          }
+        }, {
+          path: 'settings',
+          name: 'settings',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./components/Setting/Settings'))
+            })
+          }
+        }, {
+          path: '*',
+          name: 'error',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/Error'))
+            })
+          }
+        }
+      ]
+    }
+  ]
 
-function RouterConfig({history}) {
-  return (
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={ESHome}/>
-        <Route path="apps" component={AppsMgt}/>
-        <Route path="users" component={UsersMgt}/>
-        <Route path="roles" component={RolesMgt}/>
-        <Route path="funcs" component={FunctionsMgt}/>
-        <Route path="menus" component={MenusMgt}/>
-        <Route path="orgs" component={OrgsMgt}/>
-        <Route path="userGroups" component={UserGroupsMgt}/>
-        <Route path="settings" component={Settings}/>
-      </Route>
-      <Route path="/Login" component={Login} />
-    </Router>
-  );
+  return <Router history={history} routes={routes}/>
 }
-
-export default RouterConfig;

@@ -7,12 +7,16 @@ import createLoading from 'dva-loading';
 const app = dva({
   onError(e, dispatch) {
     //dispatch({type: 'app/logout'});
-    console.log(e);
+    const uncheckedErrCode = [404, 200];
     debugger;
-    e.response.json()
-      .then(data => {
+    if (uncheckedErrCode.indexOf(e.response.status) == -1) {
+      e.response.json().then(data => {
         message.error(data.message, 5)
       })
+    } else {
+      message.error(e.message, 5)
+    }
+
   }
 });
 

@@ -55,7 +55,6 @@ export default {
     },
     loginSuccess(state, {payload}){
       const {userInfo, access_token, refresh_token} = payload;
-      debugger;
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('refresh_token', refresh_token);
       return {
