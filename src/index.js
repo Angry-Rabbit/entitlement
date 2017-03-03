@@ -8,7 +8,6 @@ const app = dva({
   onError(e, dispatch) {
     //dispatch({type: 'app/logout'});
     const uncheckedErrCode = [404, 200];
-    debugger;
     if (uncheckedErrCode.indexOf(e.response.status) == -1) {
       e.response.json().then(data => {
         message.error(data.message, 5)

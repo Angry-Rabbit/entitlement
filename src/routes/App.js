@@ -11,8 +11,11 @@ const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
 function App({children, location, dispatch, app}) {
-  const {siderCollapsed, user, loading, loginButtonLoading, isLogin} = app;
+  const {siderCollapsed, user, loading, loginButtonLoading, isLogin, isNeedCaptcha, captchaSrc} = app;
+  debugger;
   const loginProps = {
+    isNeedCaptcha,
+    captchaSrc,
     loading,
     loginButtonLoading,
     onOk(data){

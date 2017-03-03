@@ -1,6 +1,6 @@
 import request from '../utils/request';
 
-export function login(account, password, jcaptcha) {
+export function login(account, password, captcha) {
   return request(`api/login`, {
     method: 'POST',
     headers: {
@@ -10,7 +10,7 @@ export function login(account, password, jcaptcha) {
       client_id: '13620027800136200278001362002780013',
       mobile: account,
       password,
-      jcaptcha,
+      captcha,
       role_id: 'R001',
     })
   })

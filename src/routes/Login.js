@@ -1,11 +1,14 @@
 import React, {PropTypes} from 'react'
-import {Button, Row, Form, Input} from 'antd'
+import {Button, Row, Form, Input, Icon} from 'antd'
 import {config} from '../utils'
 import styles from './Login.less'
+import Captcha from '../components/ui/Captcha';
 
 const FormItem = Form.Item
 
 const Login = ({
+  isNeedCaptcha,
+  captchaSrc,
   loginButtonLoading,
   onOk,
   form: {
@@ -18,6 +21,7 @@ const Login = ({
       if (errors) {
         return
       }
+      debugger;
       onOk(values)
     })
   }
@@ -37,7 +41,7 @@ const Login = ({
                 message: '请填写用户名'
               }
             ]
-          })(<Input size='large' onPressEnter={handleOk} placeholder='用户名'/>)}
+          })(<Input size='large' onPressEnter={handleOk} placeholder='用户名' addonBefore={<Icon type="user"/>}/>)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('password', {
@@ -47,8 +51,23 @@ const Login = ({
                 message: '请填写密码'
               }
             ]
-          })(<Input size='large' type='password' onPressEnter={handleOk} placeholder='密码'/>)}
+          })(<Input size='large' type='password' onPressEnter={handleOk} placeholder='密码' addonBefore={<Icon type="lock"/>}/>)}
         </FormItem>
+        {
+          isNeedCaptcha ?
+            <FormItem hasFeedback>
+              {
+                getFieldDecorator('captcha', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请填写验证码'
+                    }
+                  ]
+                })(<Captcha src={captchaSrc}/>)
+              }
+            </FormItem> : ""
+        }
         <Row>
           <Button type='primary' size='large' onClick={handleOk} loading={loginButtonLoading}>
             登录
@@ -62,6 +81,8 @@ const Login = ({
 Login.propTypes = {
   form: PropTypes.object,
   loginButtonLoading: PropTypes.bool,
+  isNeedCaptcha: PropTypes.bool,
+  captchaSrc: PropTypes.string,
   onOk: PropTypes.func
 }
 

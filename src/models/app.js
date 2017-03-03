@@ -6,6 +6,8 @@ export default {
   state: {
     isLogin: false,
     siderCollapsed: false,
+    captchaSrc: null,
+    isNeedCaptcha: false,
     user: {
       name: 'HeFan',
       permissions: [],
@@ -26,13 +28,30 @@ export default {
       });
     },
     *login({payload}, {call, put}){
-      const {account, password, jcaptcha} = payload;
-      const {data} = yield call(login, account, password, jcaptcha);
-      if (!!data) {
-        yield put({
-          type: 'loginSuccess',
-          payload: data
-        });
+      const {account, password, captcha} = payload;
+      try {
+        const {data} = yield call(login, account, password, captcha);
+        if (!!data) {
+          yield put({
+            type: 'loginSuccess',
+            payload: data
+          });
+        }
+      } catch (error) {
+        debugger;
+        const {data} = yield error.response.json().then(data => ({data}));
+        debugger;
+        message.error(data['message'], 5);
+        var captchaSrc = data['captcha.api'];
+        if (captchaSrc) {
+          yield put({
+            type: 'authFailure',
+            payload: {
+              isNeedCaptcha: true,
+              captchaSrc
+            }
+          });
+        }
       }
     }
   },
@@ -60,6 +79,15 @@ export default {
       return {
         ...state,
         isLogin: true
+      }
+    },
+    authFailure(state, {payload}){
+      const {isNeedCaptcha, captchaSrc} = payload;
+      debugger;
+      return {
+        ...state,
+        isNeedCaptcha,
+        captchaSrc,
       }
     }
   },
