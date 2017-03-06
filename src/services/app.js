@@ -1,13 +1,15 @@
-import request from '../utils/request';
+import {request} from '../utils';
 
 export function login(account, password, captcha) {
+
+  const client_id = guid();
+  debugger;
   return request(`api/login`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json; charset=utf-8"
     },
     body: JSON.stringify({
-      client_id: '13620027800136200278001362002780013',
       mobile: account,
       password,
       captcha,

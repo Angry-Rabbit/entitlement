@@ -15,6 +15,14 @@ String.prototype.humpToHyphen = function () {
   return this.replace(/([A-Z])/g, '-$1').toLowerCase()
 }
 
+// generate guid
+String.prototype.guid = function () {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 // 日期格式化
 Date.prototype.format = function (format) {
   var o = {
@@ -27,7 +35,9 @@ Date.prototype.format = function (format) {
     'q+': Math.floor((this.getMonth() + 3) / 3),
     'S': this.getMilliseconds()
   }
-  if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length)) }
+  if (/(y+)/.test(format)) {
+    format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
   for (var k in o) {
     if (new RegExp('(' + k + ')').test(format)) {
       format = format.replace(RegExp.$1, RegExp.$1.length === 1
@@ -42,5 +52,5 @@ module.exports = {
   config,
   menu,
   request,
-  classnames
+  classnames,
 }

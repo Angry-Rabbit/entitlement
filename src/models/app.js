@@ -38,7 +38,6 @@ export default {
           });
         }
       } catch (error) {
-        debugger;
         const {data} = yield error.response.json().then(data => ({data}));
         debugger;
         message.error(data['message'], 5);
