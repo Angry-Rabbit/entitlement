@@ -8,6 +8,7 @@ export default {
     siderCollapsed: false,
     captchaSrc: null,
     isNeedCaptcha: false,
+    loading: false,
     user: {
       name: 'HeFan',
       permissions: [],
@@ -30,8 +31,9 @@ export default {
     *login({payload}, {call, put}){
       const {account, password, captcha} = payload;
       try {
+        yield put({type: 'showLoginButtonLoading'});
         const {data} = yield call(login, account, password, captcha);
-        if (!!data) {
+        if (data) {
           yield put({
             type: 'loginSuccess',
             payload: data
@@ -39,18 +41,17 @@ export default {
         }
       } catch (error) {
         const {data} = yield error.response.json().then(data => ({data}));
-        debugger;
         message.error(data['message'], 5);
+
         var captchaSrc = data['captcha.api'];
-        if (captchaSrc) {
-          yield put({
-            type: 'authFailure',
-            payload: {
-              isNeedCaptcha: true,
-              captchaSrc
-            }
-          });
-        }
+        const isNeedCaptcha = !!captchaSrc;
+        yield put({
+          type: 'authFailure',
+          payload: {
+            isNeedCaptcha,
+            captchaSrc: captchaSrc + '?' + new Date().getTime(),
+          }
+        });
       }
     }
   },
@@ -77,18 +78,25 @@ export default {
       localStorage.setItem('refresh_token', refresh_token);
       return {
         ...state,
-        isLogin: true
+        isLogin: true,
+        loginButtonLoading: false,
       }
     },
     authFailure(state, {payload}){
       const {isNeedCaptcha, captchaSrc} = payload;
-      debugger;
       return {
         ...state,
         isNeedCaptcha,
         captchaSrc,
+        loginButtonLoading: false,
       }
-    }
+    },
+    showLoginButtonLoading (state) {
+      return {
+        ...state,
+        loginButtonLoading: true,
+      }
+    },
   },
 
   subscriptions: {},

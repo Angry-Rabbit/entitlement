@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from 'dva';
 import styles from './App.less';
-import {Layout, Menu, Breadcrumb, Icon, Affix} from 'antd';
+import {Layout} from 'antd';
 import Menus from '../components/Layout/Menus';
 import Bread from '../components/Layout/Bread';
 import Header from '../components/Layout/Header'
 import config from '../utils/config';
 import Login from './Login';
-const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
 function App({children, location, dispatch, app}) {
   const {siderCollapsed, user, loading, loginButtonLoading, isLogin, isNeedCaptcha, captchaSrc} = app;
-  debugger;
   const loginProps = {
     isNeedCaptcha,
     captchaSrc,
@@ -46,7 +44,8 @@ function App({children, location, dispatch, app}) {
 
   return (
     <div className={styles.normal}>
-      {!isLogin ? <Login {...loginProps}/> : <Layout className={styles.ant_layout}>
+      {!isLogin ? <Login {...loginProps}/> :
+        <Layout className={styles.ant_layout}>
           <Sider collapsible onCollapse={onCollapse} collapsed={siderCollapsed}>
             <div className={styles.logo}>
               <img src={config.logoSrc}/>

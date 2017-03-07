@@ -7,12 +7,12 @@
   ],
   "proxy": {
     "/api/**": {
-      "target": "http://192.168.51.168:8080/",
+      "target": "http://192.168.51.159:8080/",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
     },
     "/captcha": {
-      "target": "http://192.168.50.230:9000/captcha",
+      "target": "http://192.168.51.159:9000/captcha",
       "changeOrigin": true,
       "pathRewrite": { "^/captcha" : "" }
     }

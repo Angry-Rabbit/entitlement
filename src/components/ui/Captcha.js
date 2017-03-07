@@ -7,50 +7,63 @@ class Captcha extends React.Component {
 
   constructor(props) {
     super(props);
-    const value = this.props.value || {};
+    console.log(this.props)
+    const src = this.props.src;
+    debugger;
     this.state = {
-      captcha: value.captcha,
+      src
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log("componentWillReceiveProps==")
+    // console.log(nextProps)
     // Should be a controlled component.
+    debugger;
     if ('value' in nextProps) {
       const value = nextProps.value;
       this.setState(value);
     }
+
+    if('src' in nextProps){
+      this.setState({src: nextProps.src});
+    }
   }
 
-
   handleCaptchaChange = (e) => {
-    const captcha = e.target.value;
+    const code = e.target.value;
     if (!('value' in this.props)) {
-      this.setState({captcha});
+      this.setState({code});
     }
-    this.triggerChange({captcha});
+    this.triggerChange({code});
   }
 
   triggerChange = (changedValue) => {
     // Should provide an event to pass value to Form.
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange(Object.assign({}, this.state, changedValue));
+      onChange(Object.assign({}, changedValue));
     }
+  }
+
+  refreshCaptcha = () => {
+    let src = this.props.src.split('?', 1)[0] + '?' +new Date().getTime();
+    this.setState({
+      src
+    })
   }
 
 
   render() {
-    const {src} = this.props;
-    const {captcha} = this.state;
-
+    const {src} = this.state;
     return (
       <Row gutter={8}>
         <Col span={12}>
-          <Input type="text" size="large" placeholder='验证码' value={captcha} onChange={this.handleCaptchaChange}
+          <Input type="text" size="large" placeholder='验证码' onChange={this.handleCaptchaChange}
                  addonBefore={<Icon type="question"/>}/>
         </Col>
         <Col span={12}>
-          <img src={src}/>
+          <img src={src} onClick={this.refreshCaptcha}/>
         </Col>
       </Row>
     );
